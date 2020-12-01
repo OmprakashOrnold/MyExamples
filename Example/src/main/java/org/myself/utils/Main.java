@@ -42,7 +42,7 @@ public class Main {
     public static void main(String[] args) {
 		
     
-			System.out.println(getURLResponse(getNewsLinks("https://mayadata.io/")));
+		//	System.out.println(getURLResponse(getNewsLinks("https://mayadata.io/")));
 		
 	}
  
