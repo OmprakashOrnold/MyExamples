@@ -21,9 +21,9 @@ public class NewsFomWebsite {
 		Integer urlLengthCount=null;
 
 		List<String> url=new ArrayList<String>();
-		url.add("	https://www.woundtech.net/	");
+		url.add("	https://www.globalmed.com/	");
 		url.add("	https://carejourney.com/	");
-		url.add("    https://ainq.com/	");
+		url.add("   https://ainq.com/	");
 		
 
 		//Extracting News links from Websites
@@ -32,8 +32,6 @@ public class NewsFomWebsite {
 			String urlLink= (String) iterator.next();
 
 			try {
-
-			
 
 				documnet1=getURLResponse(getBlogLinks(urlLink));
 
