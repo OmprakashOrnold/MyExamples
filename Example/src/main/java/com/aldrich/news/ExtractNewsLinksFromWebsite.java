@@ -1,14 +1,9 @@
 package com.aldrich.news;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
@@ -22,25 +17,24 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
+public class ExtractNewsLinksFromWebsite {
 
-public class NewsFomWebsite {
-
+	private static String pattern="(/news-reseases|(/press-releases/)|(/media-coverage/)|(/news|category/press-release)|(category/news)|(/category/news-releases/)|(/press)|"
+			+ "(in-the-news)|(/healthcare-business-news/)|research-and-news/|(topic/news)|(About-Us/Newsroom)|(/news/)|(news)|(news/)|(company/news/)"
+			+ "|(/insights/)|(/press)|(/press-room)|(/latest-news/)|(newsroom-gateway)|(/company/press-release/)|(/news-and-updates)"
+			+ "|(/category/latest-news/)|(/company/press-room/)|(the-apcela-newsroom)|(/category/latest-news/)|(/latest-news)|(whatsnew?new)|(/News)|(invester_news)"
+			+ "|(#news)|(news/main)|(in-the-media)|(/newsletter)|(news-room)|(news.html)"
+			+ "|(/category/press/)|(news-events/press-releases/)|(/news_and_media/)}|(blog)|(type/blog)|(en/blog)|(/blog)|(/blog/)|(blog/)|tm-blog|bolgs|(/buzz/blog/)|(events)|(articles)|(/insights/catelog/)|(type/article))+";
 	public static void main(String[] args) {
-
-		Document documnet1 = null;
-		String newsPageUrls=null;
-		String blogPageUrls=null;
 
 		List<String> url=new ArrayList<String>();
 
-		url.add("https://rfidgs.com/");
-
+		url.add("	https://jackrabbittech.com/	");
+		url.add("	https://www.net-inspect.com/	");		
 		url.add("	https://medicopy.net/	");
 		url.add("	https://sproutloud.com/	");
 		url.add("	https://online-rewards.com/	");
-
+		
 		url.add("	https://www.ema.us/	");
 		url.add("	https://www.salary.com/	");
 		url.add("	https://www.shmoop.com/	");
@@ -135,159 +129,38 @@ public class NewsFomWebsite {
 		url.add("	https://www.decisionresearch.com/	");
 		url.add("	https://www.processmap.com/	");
 		url.add("	https://www.gtsoftware.com/	");
+		 
+		Document doc = null;
+		String newsPageUrls=null;
+		Integer urlLengthCount=null;
 
-		Iterator<String> iterator= url.iterator();
-		while (iterator.hasNext()) {
-			String urlLink= iterator.next().trim();
-			String blogurls=getBlogLinks(urlLink);
-			String newsurls=getNewsLinks(urlLink);
-			try {
-				if(blogurls!=null&&!blogurls.isEmpty())
-				{
-					documnet1=getURLResponse(blogurls);
+		for (String string : url) {
 
-					Elements elements1 = documnet1.select("a[href]");
-
-					for (Element e : elements1) {
-						blogPageUrls=e.attr("abs:href");
-
-						if(blogPageUrls.length()>50)
-						{
-							if((getURLResponse(blogPageUrls).text())!=null&&!(getURLResponse(blogPageUrls).text()).isEmpty())
-							{
-								String date =getDateFromString(getURLResponse(blogPageUrls).text());
-								if(date!=null&&!date.isEmpty())
-								{
-									getNewsInfo(blogPageUrls);
-								}
-
-							}
-						}
-
-					}
-				}
-				if(newsurls!=null&&!newsurls.isEmpty())
-				{
-					documnet1=getURLResponse(newsurls);
-					Elements elements2 = documnet1.select("a[href]");
-					for (Element e : elements2) {
-						newsPageUrls=e.attr("abs:href");
-						if(newsPageUrls.length()>50)
-						{
-							if((getURLResponse(newsPageUrls).text())!=null&&!(getURLResponse(newsPageUrls).text()).isEmpty())
-							{
-								String date =getDateFromString(getURLResponse(newsPageUrls).text());
-								if(date!=null&&!date.isEmpty())
-								{
-									getNewsInfo(newsPageUrls);
-								}
-							}
-						}
-					}
-
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-
-	public static void getNewsInfo(String newsPageLink) {
-		Document documnet1;
-		String title=null;
-		String description=null;
-		String date=null;
-
-		try {			
-			documnet1=getURLResponse(newsPageLink);
-
-
-			title=documnet1.getElementsByTag("title").text();
-
-
-			date=getDateFromString(documnet1.text());
-
-			Elements des=documnet1.getElementsByAttributeValue("name", "description");
-			
-			description=des.attr("content");
+			if(getNewsLinks(string.trim())!=null&&!getNewsLinks(string.trim()).isEmpty())
+			{	
+				//System.out.println(getNewsLinks(string.trim()));
 				
-			
-			
-			if(!description.isEmpty()&&description!=null)
-			{
-				System.out.println(newsPageLink);
-				System.out.println(title);
-				System.out.println(date);
-				System.out.println(description);
-
-
+				doc=getURLResponse(getNewsLinks(string.trim()));
+				Elements elements = doc.select("a[href]");
+				for (Element e : elements) {
+					newsPageUrls=e.attr("abs:href");
+					System.out.println(newsPageUrls);
+					if(!newsPageUrls.isEmpty())
+					{
+					    if(newsPageUrls.contains("blog"))
+					    {
+						System.out.println(newsPageUrls.trim());
+					    }else
+					    	if(newsPageUrls.contains("press"))
+					    	{
+					    		System.out.println(newsPageUrls.trim());
+					    	}
+					}
+				}
 			}
-
-			System.out.println();
-
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+
 	}
-
-	public static String getDateFromString(String string) {
-
-		String location=null;
-		String street = "(\\d{1,2}\\s(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?) \\d{1,4})|((Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s([1-9]|([12][0-9])|(3[01])),\\s\\d\\d\\d\\d)|((([1-9]|1[012])[-//.]([1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d)|((1[012]|0[1-9])(3[01]|2\\d|1\\d|0[1-9])(19|20)\\d\\d)|((1[012]|0[1-9])[-//.](3[01]|2\\d|1\\d|0[1-9])[-//.](19|20)\\d\\d))";
-		try {
-			Pattern compile = Pattern.compile(street);
-			Matcher matcher = compile.matcher(string);
-			if (matcher.find()) {
-				location = matcher.group(0);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return location;
-	}
-
-
-	//To connect url
-	public static  Document getURLResponse(String str) {
-		Document documnet = null;
-		String resp=null;
-		try {
-			OkHttpClient client = new OkHttpClient();
-			client.setConnectTimeout(10, TimeUnit.SECONDS);
-			client.setReadTimeout(30, TimeUnit.SECONDS);
-			client.setFollowRedirects(true);
-			Request request = new Request.Builder()
-					.url(str)					
-					.get()
-					.build();
-			resp=client.newCall(request).execute().body().string();
-			documnet = Jsoup.parse(resp);
-		} catch (Exception e) {
-			//e.printStackTrace();
-		}
-		return documnet;
-	}
-
-	public static String getDomainNameForURL(String url) {
-		String updatedURL = null;
-		try {
-			updatedURL = url.replace("///", "//").replace(",", ".");
-
-			URI uri = new URI(url);
-			String domain = uri.getHost();
-
-			if (domain != null) {
-				updatedURL = domain.startsWith("www.") ? domain.substring(4) : domain;
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return updatedURL;
-	}
-
 	public static String getNewsLinks(String urlLink) {
 		String news_link=null;
 		try {
@@ -300,11 +173,7 @@ public class NewsFomWebsite {
 					+ "|(#news)|(news/main)|(in-the-media)|(/newsletter)|(news-room)|(news.html)"
 					+ "|(/category/press/)|(news-events/press-releases/)|(/news_and_media/)|(/insights/catelog/)|(type/article))+";
 
-
-
 			Elements newsLinks =document.getElementsByAttributeValueMatching("href",pattern);
-
-
 			if(!newsLinks.attr("href").isEmpty()) 
 			{							
 				if(!(newsLinks.attr("abs:href").contains("wp-content")))
@@ -313,50 +182,39 @@ public class NewsFomWebsite {
 					{
 						//System.out.println(newsLinks.attr("abs:href"));
 						news_link=newsLinks.attr("abs:href");
-
 					}
 				}
-
-
 			}else {
 				news_link="";
 			}
-
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
 		return news_link;
 	}
-
-	public static String getBlogLinks(String urlLink) {
-		String news_link=null;
+	//To connect url
+	public static  Document getURLResponse(String str) {
+		Document doc = null;
+		String content=null;
 		try {
-			Document document=getURLResponse(urlLink);
-
-
-			String pattern1="(blog)|(type/blog)|(en/blog)|(/blog)|(/blog/)|(blog/)|tm-blog|bolgs|(/buzz/blog/)|(events)|(articles)";
-
-			Elements newsLinks1 =document.getElementsByAttributeValueMatching("href", pattern1);
-
-			if(!newsLinks1.attr("href").isEmpty()) 
-			{							
-
-				if(!(newsLinks1.attr("abs:href").contains("wp-content")))
-				{
-					if(!newsLinks1.attr("abs:href").isEmpty())
-					{
-						news_link=newsLinks1.attr("abs:href");
-					}
-				}
-			}else {
-				news_link="";
-			}
-
-		}
-		catch (Exception e) {
+			CloseableHttpClient httpclient = HttpClients.createDefault(); // Create an httpclient instance
+			HttpGet httpget = new HttpGet(str); // Create a httpget instance
+			CloseableHttpResponse response = httpclient.execute(httpget); // Execute the get request
+			HttpEntity entity = response.getEntity(); // Get the returned entity
+			content = EntityUtils.toString(entity, "utf-8");
+			doc = Jsoup.parse(content);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return news_link;
+
+		return doc;
 	}
+
 }
+
+
