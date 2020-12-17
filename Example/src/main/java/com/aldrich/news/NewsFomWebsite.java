@@ -2,13 +2,14 @@ package com.aldrich.news;
 
 import java.io.IOException;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.util.concurrent.TimeUnit;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
@@ -22,170 +23,54 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-
 public class NewsFomWebsite {
+
+
+	private static String regex="^(https:|http:)(.)*";
 
 	public static void main(String[] args) {
 
 		Document documnet1 = null;
 		String newsPageUrls=null;
 		String blogPageUrls=null;
+		String className=null;
+
+		String blogUrls=null;
+		String newsUrls=null;
+
 
 		List<String> url=new ArrayList<String>();
 
-		url.add("https://rfidgs.com/");
-
-		url.add("	https://medicopy.net/	");
-		url.add("	https://sproutloud.com/	");
-		url.add("	https://online-rewards.com/	");
-
-		url.add("	https://www.ema.us/	");
-		url.add("	https://www.salary.com/	");
-		url.add("	https://www.shmoop.com/	");
-		url.add("	http://www.kannact.com/	");
-		url.add("	https://www.indinero.com/	");
-		url.add("	https://www.histowiz.com/	");
-		url.add("	http://www.accountantsworld.com/	");
-		url.add("	https://www.openclinica.com	");
-		url.add("	https://www.alacriti.com/	");
-		url.add("	https://www.alianza.com/	");
-		url.add("	https://www.comm100.com/	");
-		url.add("	https://compliancy-group.com/	");
-		url.add("	https://www.medweb.com/	");
-		url.add("	https://clinicalarchitecture.com/	");
-		url.add("	http://www.igihealth.com/	");
-		url.add("	https://www.obix.com/	");
-		url.add("	https://thessigroup.com/	");
-		url.add("	https://www.ellkay.com/	");
-		url.add("	https://www.eccentex.com/	");
-		url.add("	https://www.azaleahealth.com/	");
-		url.add("	https://neuroalert.com/	");
-		url.add("	http://www.ehiconnect.com/	");
-		url.add("	https://www.alanahealthcare.com/	");
-		url.add("	https://www.ligolab.com/	");
-		url.add("	https://www.revenuewire.com	");
-		url.add("	https://riskspan.com/	");
-		url.add("	http://www.objectiflune.com/	");
-		url.add("	https://www.acdlabs.com/	");
-		url.add("	https://leanindustries.com/	");
-		url.add("	https://www.magnetforensics.com/	");
-		url.add("	https://exagoinc.com/	");
-		url.add("	https://www.coremobileinc.com/	");
-		url.add("	http://www.vichara.com/	");
-		url.add("	https://www.celayix.com/	");
-		url.add("	https://www.globalids.com/	");
-		url.add("	https://www.upstreamworks.com/	");
-		url.add("	https://www.momentumhealthware.com/	");
-		url.add("	https://www.fdm4.com/	");
-		url.add("	https://www.mycomplianceoffice.com	");
-		url.add("	http://jostle.me/	");
-		url.add("	http://www.skyitgroup.com/	");
-		url.add("	https://www.zuman.com/	");
-		url.add("	https://www.verdantis.com/	");
-		url.add("	https://www.edetek.com/	");
-		url.add("	http://www.rebarsys.com/	");
-		url.add("	https://ptfs.com/	");
-		url.add("	https://www.ellumen.com/	");
-		url.add("	https://mfino.com/	");
-		url.add("	https://lunarline.com/	");
-		url.add("	https://activu.com/	");
-		url.add("	https://www.logicbroker.com/	");
-		url.add("	https://brightsign.biz	");
-		url.add("	https://explorance.com/	");
-		url.add("	https://ntint.com/	");
-		url.add("	http://www.altusdynamics.com	");
-		url.add("	https://instapage.com/	");
-		url.add("	https://vigilanzcorp.com/	");
-		url.add("	https://medicomhealth.com/	");
-		url.add("	https://selectdata.com/	");
-		url.add("	https://proscan.com/	");
-		url.add("	https://sytrue.com/	");
-		url.add("	https://sellercloud.com/	");
-		url.add("	https://www.liferay.com/	");
-		url.add("	https://www.kineticdata.com/	");
-		url.add("	https://medikeeper.com/	");
-		url.add("	https://www.sciforma.com/	");
-		url.add("	https://www.processweaver.com/	");
-		url.add("	https://www.savanainc.com/	");
-		url.add("	https://www.datafied.com/	");
-		url.add("	https://www.panderasystems.com/	");
-		url.add("	https://www.penrad.com/	");
-		url.add("	https://www.hmchealthworks.com/	");
-		url.add("	https://www.salucro.com	");
-		url.add("	https://hpgroupllc.com/	");
-		url.add("	https://www.intellect.com/	");
-		url.add("	https://www.4cite.com/	");
-		url.add("	https://www.atlassystems.com/	");
-		url.add("	https://www.hrgpros.com/	");
-		url.add("	https://avasure.com/	");
-		url.add("	https://sdata.us/	");
-		url.add("	https://www.stratahealth.com/	");
-		url.add("	https://www.biosero.com/	");
-		url.add("	https://www.prophix.com/	");
-		url.add("	https://bluesageusa.com/	");
-		url.add("	https://www.smartflowcompliance.com/	");
-		url.add("	https://www.archive360.com/	");
-		url.add("	https://www.reversevision.com/	");
-		url.add("	https://www.finsync.com/	");
-		url.add("	https://www.corepartners.com/	");
-		url.add("	https://onereach.com/	");
-		url.add("	https://servicecentral.com/	");
-		url.add("	https://www.decisionresearch.com/	");
-		url.add("	https://www.processmap.com/	");
-		url.add("	https://www.gtsoftware.com/	");
+		//	url.add("http://www.woundtech.net/");
+		url.add("https://www.salespad.com");
 
 		Iterator<String> iterator= url.iterator();
 		while (iterator.hasNext()) {
 			String urlLink= iterator.next().trim();
-			String blogurls=getBlogLinks(urlLink);
-			String newsurls=getNewsLinks(urlLink);
+			String blogurls=getBlogLinks(formatUrl(urlLink));
+			String newsurls=getNewsLinks(formatUrl(urlLink));
 			try {
 				if(blogurls!=null&&!blogurls.isEmpty())
 				{
-					documnet1=getURLResponse(blogurls);
-
-					Elements elements1 = documnet1.select("a[href]");
-
-					for (Element e : elements1) {
-						blogPageUrls=e.attr("abs:href");
-
-						if(blogPageUrls.length()>50)
+					List<String> bolgUrlList=getProperNewsUrls(blogurls);
+					for (String string : bolgUrlList) {
+						if(string.matches(regex)&&!string.isEmpty()&&string!=null&&!string.contains("topic"))
 						{
-							if((getURLResponse(blogPageUrls).text())!=null&&!(getURLResponse(blogPageUrls).text()).isEmpty())
-							{
-								String date =getDateFromString(getURLResponse(blogPageUrls).text());
-								if(date!=null&&!date.isEmpty())
-								{
-									getNewsInfo(blogPageUrls);
-								}
-
-							}
+							getNewsInfo(string);
 						}
-
 					}
 				}
 				if(newsurls!=null&&!newsurls.isEmpty())
 				{
-					documnet1=getURLResponse(newsurls);
-					Elements elements2 = documnet1.select("a[href]");
-					for (Element e : elements2) {
-						newsPageUrls=e.attr("abs:href");
-						if(newsPageUrls.length()>50)
+					List<String> newsUrlList=getProperNewsUrls(newsurls);
+					for (String string : newsUrlList) {
+						if(string.matches(regex)&&!string.isEmpty()&&string!=null&&!string.contains("topic"))
 						{
-							if((getURLResponse(newsPageUrls).text())!=null&&!(getURLResponse(newsPageUrls).text()).isEmpty())
-							{
-								String date =getDateFromString(getURLResponse(newsPageUrls).text());
-								if(date!=null&&!date.isEmpty())
-								{
-									getNewsInfo(newsPageUrls);
-								}
-							}
+							getNewsInfo(string);
 						}
 					}
-
 				}
+
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -194,80 +79,240 @@ public class NewsFomWebsite {
 	}
 
 
+	public static List<String> getProperNewsUrls(String newsUrl) {
+
+		Document documnet=null;
+		String blogPageUrls=null;
+		String newsContentUrl=null;
+		String className=null;
+		String onlyNewsUrls=null;
+
+		List<String> newsUrlList=new ArrayList<String>();
+
+		documnet=getURLResponse(newsUrl);
+		Elements elements1 = documnet.select("a[href]");
+
+
+
+		List<String> listBlogPageUrls=new ArrayList<String>();
+		for (Element e : elements1) {
+
+			blogPageUrls=e.attr("abs:href");	
+			if(blogPageUrls.matches(regex)&&!blogPageUrls.contains("yahoo.com"))
+			{
+				listBlogPageUrls.add(blogPageUrls);
+			}
+		}
+
+		//using lambda expression
+		newsContentUrl=listBlogPageUrls.stream()
+				.filter(i -> i.replace("https://wwww.", "").replace("http://wwww.", "").replace("https://", "").replace("http://", "")
+						.length()>100).findFirst()
+				.toString().replace("Optional[", "").replace("]", "");
+
+		//miltiple url repeates
+		List<String> listNewsContentUrl=new ArrayList<String>();
+		Elements elements=documnet.getElementsByAttributeValueContaining("href", newsContentUrl);
+		for (Element element : elements) {
+			if(element.className()!=null&&!element.className().isEmpty())
+			{
+				listNewsContentUrl.add((element.className()));
+			}else{
+				listNewsContentUrl.add(element.parent().className());
+			}
+
+
+		}
+
+		className=listNewsContentUrl.stream().findFirst().toString().replace("Optional[", "").replace("]", "");
+		if(!className.isEmpty()&&className!=null)
+		{
+			Elements blogUrlsElement=documnet.select("."+className);	
+			for (Element element : blogUrlsElement) {
+				if(element.childrenSize()!=0)
+				{
+					onlyNewsUrls=element.getElementsByTag("a").attr("href");
+					newsUrlList.add(onlyNewsUrls);
+				}else{
+					onlyNewsUrls=element.text();
+					newsUrlList.add(onlyNewsUrls);
+
+				}		
+
+			}
+		}
+
+		return newsUrlList;
+	}
+
+
+	@SuppressWarnings("unused")
 	public static void getNewsInfo(String newsPageLink) {
-		Document documnet1;
+		Document documnet=null;
 		String title=null;
 		String description=null;
 		String date=null;
+		Date convertedDate=null;
 
-		try {			
-			documnet1=getURLResponse(newsPageLink);
+		try {		
 
-
-			title=documnet1.getElementsByTag("title").text();
-
-
-			date=getDateFromString(documnet1.text());
-
-			Elements des=documnet1.getElementsByAttributeValue("name", "description");
-			
-			description=des.attr("content");
-				
-			
-			
-			if(!description.isEmpty()&&description!=null)
+			documnet=getURLResponse(newsPageLink);
+			if(documnet!=null)
 			{
-				System.out.println(newsPageLink);
-				System.out.println(title);
-				System.out.println(date);
-				System.out.println(description);
+				
+				
+					//title
+					Elements titleElement=documnet.select("meta[property='og:title']");
+					if(titleElement!=null&&!titleElement.isEmpty())
+					{
+						title="";
+						title=titleElement.attr("content");
+					}else{
+						Elements titleElement2=documnet.getElementsByTag("title");
+						title="";
+						title=titleElement2.text();
+					}
 
+					//description
+					Elements descriptionElement=documnet.select("meta[property='og:description']");
+					if(descriptionElement!=null&&!descriptionElement.isEmpty())
+					{
+						if(descriptionElement.attr("content").length()>15)
+						{
+							description="";
+							description=descriptionElement.attr("content");
+						}
+					}
+					
+					//date
+					Elements dateElement=documnet.select("meta[property='article:published_time']");
+					if(dateElement!=null&&!dateElement.isEmpty())
+					{
+						String dateArray[]=dateElement.attr("content").split("T");	
+						date="";
+						date=dateArray[0];
+					}else{				
+						date="";
+						date=getDateFromString(documnet.text());
+					}
+
+					if(convertAnyTypeDateToSingleFormat(date)!=null)
+					{
+						convertedDate=convertAnyTypeDateToSingleFormat(date);
+					}
+
+					System.out.println("-------------------------------------------------");
+					System.out.println(convertedDate);			
+					System.out.println(title);
+					System.out.println(description);
+					System.out.println(date);
+					System.out.println(newsPageLink);	
+					System.out.println("-------------------------------------------------");
+					System.out.println();
+
+					
+				
 
 			}
 
-			System.out.println();
+
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public static String getDateFromString(String string) {
 
-		String location=null;
-		String street = "(\\d{1,2}\\s(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?) \\d{1,4})|((Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s([1-9]|([12][0-9])|(3[01])),\\s\\d\\d\\d\\d)|((([1-9]|1[012])[-//.]([1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d)|((1[012]|0[1-9])(3[01]|2\\d|1\\d|0[1-9])(19|20)\\d\\d)|((1[012]|0[1-9])[-//.](3[01]|2\\d|1\\d|0[1-9])[-//.](19|20)\\d\\d))";
-		try {
-			Pattern compile = Pattern.compile(street);
-			Matcher matcher = compile.matcher(string);
-			if (matcher.find()) {
-				location = matcher.group(0);
+		String date=null;
+		String regex1="\\d{1,2}\\s(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?) \\d{4,4}";
+		String regex2="((Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s([1-9]|([12][0-9])|(3[01])),\\s\\d\\d\\d\\d)";
+		String regex3="\\d{1,2}\\s\\d{1,2}\\s\\d{4,4}";
+
+		String regex4="\\d{4,4}[\\/]\\d{1,2}[\\/]\\d{1,2}";
+		String regex5="\\d{4,4}[\\-]\\d{1,2}[\\-]\\d{1,2}";
+		String regex6="\\d{1,2}\\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|dec)\\-\\d{4,4}";
+		String regex7="\\d{1,2}[\\/]\\d{1,2}[\\/]\\d{4,4}";
+
+		String dateFormat ="("+regex1+")|("+regex2+")|("+regex3+")|("+regex4+")|("+regex5+")|("+regex6+")|("+regex7+")";
+
+		if(string!=null&&!string.isEmpty()){
+			try {
+				Pattern compile = Pattern.compile(dateFormat);
+				Matcher matcher = compile.matcher(string);
+				if (matcher.find()) {
+					date = matcher.group(0);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		return location;
+		return date;
+	}
+
+	public static Date convertAnyTypeDateToSingleFormat(String dateInString) {
+		String dateFormat=null;
+		Date date =null;
+
+
+		String regex1="\\d{1,2}\\s(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s\\d{4,4}";
+		String regex2="((Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s([1-9]|([12][0-9])|(3[01])),\\s\\d\\d\\d\\d)";
+		String regex3="\\d{1,2}\\s\\d{1,2}\\s\\d{4,4}";
+
+		String regex4="\\d{4,4}[\\/]\\d{1,2}[\\/]\\d{1,2}";
+		String regex5="\\d{4,4}[\\-]\\d{1,2}[\\-]\\d{1,2}";
+		String regex6="\\d{1,2}\\-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|dec)\\-\\d{4,4}";
+		String regex7="\\d{1,2}[\\/]\\d{1,2}[\\/]\\d{4,4}";
+
+		String regex8="((Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s([1-9]|([12][0-9])|(3[01]))\\s\\d\\d\\d\\d)";
+		if(dateInString!=null&&!dateInString.isEmpty())
+		{
+			if(dateInString.matches(regex1)){
+				dateFormat="dd MMM yyyy";
+			}else if(dateInString.matches(regex2)){
+				dateFormat="MMM dd, yyyy";
+			}else if(dateInString.matches(regex3)){
+				dateFormat="dd MM yyyy";
+			}else if(dateInString.matches(regex4)){
+				dateFormat="yyyy/MM/dd";
+			}else if(dateInString.matches(regex5)){
+				dateFormat="yyyy-MM-dd";
+			}else if(dateInString.matches(regex6)){
+				dateFormat="d-MMM-yyyy";
+			}else if(dateInString.matches(regex7)){
+				dateFormat="d/MM/yyyy";
+			}else if(dateInString.matches(regex8)){
+				dateFormat="MMM dd yyyy";
+			}
+
+			SimpleDateFormat formatter = new SimpleDateFormat(dateFormat);
+			try {
+				date = formatter.parse(dateInString);
+			} catch (ParseException | java.text.ParseException e) {
+				e.printStackTrace();
+			}
+
+		}
+
+
+		return date;
 	}
 
 
 	//To connect url
 	public static  Document getURLResponse(String str) {
-		Document documnet = null;
-		String resp=null;
+		Document documnet=null;
 		try {
-			OkHttpClient client = new OkHttpClient();
-			client.setConnectTimeout(10, TimeUnit.SECONDS);
-			client.setReadTimeout(30, TimeUnit.SECONDS);
-			client.setFollowRedirects(true);
-			Request request = new Request.Builder()
-					.url(str)					
-					.get()
-					.build();
-			resp=client.newCall(request).execute().body().string();
-			documnet = Jsoup.parse(resp);
+			documnet=Jsoup.connect(str)
+					.userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0")
+					.ignoreHttpErrors(true).get();
+
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
-		return documnet;
+
+		return documnet;	
 	}
 
 	public static String getDomainNameForURL(String url) {
@@ -359,4 +404,82 @@ public class NewsFomWebsite {
 		}
 		return news_link;
 	}
+	public static String formatUrl(String url)
+	{
+		String formattedUrl = "";
+		try
+		{
+			if (!url.startsWith("https://www.") && !url.startsWith("http://www."))
+			{
+				if (url.startsWith("//"))
+				{
+					if (url.contains("www."))
+					{
+						formattedUrl = url.substring(2, url.length());
+						formattedUrl = "http://" + formattedUrl;
+					}
+					else
+					{
+						formattedUrl = url.substring(2, url.length());
+						formattedUrl = "http://www." + formattedUrl;
+					}
+				}
+				else if (url.startsWith("www."))
+				{
+					formattedUrl = "http://" + url;
+				}
+				else if (url.startsWith("ttp://"))
+				{
+					formattedUrl = "h" + url;
+				}
+				else if (url.startsWith("htttp://"))
+				{
+					formattedUrl = url.replace("htttp", "http");
+				}
+				else if (url.startsWith("httphttp") || url.contains("httphttp"))
+				{
+					formattedUrl = url.replace("httphttp", "http");
+				}
+				else if (url.startsWith("httpshttps") || url.contains("httpshttps"))
+				{
+					formattedUrl = url.replace("httpshttps", "https");
+				}
+				else if (url.startsWith("wwwwww."))
+				{
+					formattedUrl = url.replace("wwwwww.", "www.");
+				}
+				else if (!url.toLowerCase().contains("www."))
+				{
+					if (url.toLowerCase().contains("http://"))
+					{
+						formattedUrl = url.toLowerCase().replace("http://", "");
+						formattedUrl = "http://www." + formattedUrl;
+					}
+					else if (url.toLowerCase().contains("https://"))
+					{
+						formattedUrl = url.toLowerCase().replace("https://", "");
+						formattedUrl = "https://www." + formattedUrl;
+					}
+					else
+					{
+						formattedUrl = "http://www." + url;
+					}
+				}
+				else
+				{
+					formattedUrl = "http://www." + url;
+				}
+			}
+			else
+			{
+				formattedUrl = url;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return formattedUrl;
+	}
+
 }

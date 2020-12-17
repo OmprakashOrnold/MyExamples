@@ -21,26 +21,28 @@ public class ainq {
 
 		try {
 
-				document=Jsoup.connect("https://ainq.com/media/blog/").userAgent(PASEConstants.USER_AGENT).ignoreContentType(true).ignoreHttpErrors(true).get();
+				document=Jsoup.connect("https://ainq.com/media/press-releases/").userAgent(PASEConstants.USER_AGENT).ignoreContentType(true).ignoreHttpErrors(true).get();
 
-				Elements ele=document.select("h2[class='entry-title']");
+				Elements ele=document.select("h4[class='entry-title']");
 
 				for (Element element : ele) {
 					//System.out.println(element.text());
 					
 				}
 
-				Elements ele6=document.select("h2[class='entry-title']");
+				Elements ele6=document.select("h4[class='entry-title']");
 
 				for (Element element : ele6) {
-					//System.out.println(element.getElementsByTag("a").attr("href"));
+					System.out.println(element.getElementsByTag("a").attr("href"));
 				}
 
+				System.out.println();
 				Elements ele5=document.select("div[class='post-content-inner']");
 
 				for (Element element : ele5) {
-					//System.out.println(element.text());
+					System.out.println(element.text());
 				}
+				System.out.println();
 
 				Elements ele3=document.select("span[class='published']");
 

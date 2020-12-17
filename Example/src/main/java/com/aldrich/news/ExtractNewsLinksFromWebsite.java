@@ -204,6 +204,7 @@ public class ExtractNewsLinksFromWebsite {
 			HttpEntity entity = response.getEntity(); // Get the returned entity
 			content = EntityUtils.toString(entity, "utf-8");
 			doc = Jsoup.parse(content);
+			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {

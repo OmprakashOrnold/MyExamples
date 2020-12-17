@@ -8,6 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.aldrich.pase.util.PASEConstants;
+import com.gargoylesoftware.htmlunit.javascript.host.dom.Attr;
 
 public class processmaker {
 
@@ -16,7 +17,7 @@ public class processmaker {
 		Document document=null;
 		String title=null;
 		try {
-			document=Jsoup.connect("https://www.processmaker.com/resources/customer-success/news/page/7/").userAgent(PASEConstants.USER_AGENT).ignoreContentType(true).ignoreHttpErrors(true).get();
+			document=Jsoup.connect("https://www.processmaker.com/blog/").userAgent(PASEConstants.USER_AGENT).ignoreContentType(true).ignoreHttpErrors(true).get();
 
 			Elements ele=document.select("h5[class='card-title py-0']");
 
@@ -47,7 +48,7 @@ public class processmaker {
 			if(ele3.hasAttr("href"))
 			{
 				for (Element element : ele3) {
-					System.out.println(element);
+					System.out.println(element.attr("href"));
 				}
 			}
 			System.out.println("---------------------------------------------------------------");
