@@ -42,7 +42,7 @@ public class NewsFomWebsite {
 		List<String> url=new ArrayList<String>();
 
 		//	url.add("http://www.woundtech.net/");
-		url.add("https://www.salespad.com");
+		url.add("magnetforensics.com/r");
 
 		Iterator<String> iterator= url.iterator();
 		while (iterator.hasNext()) {

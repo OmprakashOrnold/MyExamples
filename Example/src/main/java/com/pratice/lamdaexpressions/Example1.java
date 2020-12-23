@@ -12,14 +12,17 @@ public class Example1 {
 	public static void main(String[] args) {
 
 		   //using lambda expression list
-		    List<String> places = new ArrayList<>();
+		    Set<String> places = new HashSet<>();
 	        // add places and country to the list
 	        places.add("Nepal, Kathmandu");
-	        places.add("Nepal, Pokhara");
+	        places.add(null);
 	        places.add("India, Delhi");
 	        places.add("USA, New York");
 	        places.add("Africa, Nigeria");
 	        
+	     if(places.size()==1){
+	    	System.out.println("hey got"); 
+	     }
 		    //using lambda expression
 	        places.forEach(s -> System.out.println(s));
 		

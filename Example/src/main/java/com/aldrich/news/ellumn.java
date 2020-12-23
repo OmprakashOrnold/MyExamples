@@ -20,13 +20,13 @@ public class ellumn {
 
 		
 			
-			document=getDocument("https://ellumen.com/news-events/");
+			document=getDocument("https://www.pwnhealth.com/news-and-insights/");
 		
-			Elements companyName1=document.select("div[class='read-button']");
+			Elements companyName1=document.select("div[class='common-btn']");
 			for (Element element : companyName1) {
 				
-				//System.out.println(element.getElementsByTag("a").attr("href"));
-			     document1=getDocument(element.getElementsByTag("a").attr("href"));
+				System.out.println(element.getElementsByTag("a").attr("href"));
+			     //ocument1=getDocument(element.getElementsByTag("a").attr("href"));
 			
 			     
 			 
@@ -37,9 +37,9 @@ public class ellumn {
 				//Elements description=document1.select("meta[property='og:description']");
 				//System.out.println(description.attr("content"));
 			     
-			   Elements description=document1.select("meta[property='article:published_time']");
-			   String date[]=description.attr("content").split("T");
-				System.out.println(date[0]);
+			 //  Elements description=document1.select("meta[property='article:published_time']");
+			  // String date[]=description.attr("content").split("T");
+				//System.out.println(date[0]);
 				
 				
 
