@@ -7,9 +7,11 @@ import java.util.Date;
 public class GettingDateFromString {
 
 	public static void main(String[] args) {
+		
+		String dateInString="January 17th, 2018";
 	
-		String dateInString="Sept. 18, 2019";
-		System.out.println(dateInString.toLowerCase().replace("th", "").replace("nd", ""));
+		dateInString=dateInString.toLowerCase().replace("th", "").replace("nd", "").replace("rd", "");
+		System.out.println(dateInString);
 		System.out.println(convertAnyTypeDateToSingleFormat(dateInString));
 	}
 
@@ -74,7 +76,7 @@ public class GettingDateFromString {
 				dateFormat="dd MM yyyy";
 			}else if(dateInString.matches(regex16)){
 				dateFormat="yyyy/MM/dd";
-			}else if(dateInString.matches(regex17)){
+			}else if(dateInString.matches(regex17.toLowerCase())){
 				dateFormat="MMM. dd, yyyy";
 			}else if((dateInString).matches(regex13.toLowerCase())){
 				dateFormat="MMM dd, yyyy";

@@ -20,7 +20,7 @@ public class GettingProperNewsUrls {
 
 	public static void main(String[] args) {
 
-		String newsurls="https://ontraport.com/press";
+		String newsurls="https://about.crunchbase.com/pressroom/";
 		if(newsurls!=null&&!newsurls.isEmpty())
 		{
 			Set<String> newsUrlList=getProperNewsUrls(newsurls);
@@ -52,20 +52,23 @@ public class GettingProperNewsUrls {
 		try{
 			documnet=getURLResponse(newsUrl);
 
-			Elements elements1 = documnet.select("a[href]");
-
+			Elements elements = documnet.select("a[href]");
+			
 			List<String> listBlogPageUrls=new ArrayList<String>();
-			for (Element e : elements1) {
-
-				blogPageUrls=e.attr("abs:href");
-				if(blogPageUrls.length()>90)
+			elements.forEach((e) -> {
+				if(isUrlValid(e.attr("abs:href")))
 				{
-					if(isUrlValid(blogPageUrls))
+					if(e.attr("abs:href").length()>100)
 					{
-						listBlogPageUrls.add(blogPageUrls);
+						String newsContent=e.attr("abs:href");
+						listBlogPageUrls.add(newsContent);
 					}
-				}
+				}  });
+			
+			for (String string : listBlogPageUrls) {
+				System.out.println(string);
 			}
+			
 
 
 
@@ -77,8 +80,8 @@ public class GettingProperNewsUrls {
 			
 				//miltiple url repeates
 				List<String> listNewsContentUrls=new ArrayList<String>();
-				Elements elements=documnet.getElementsByAttributeValueContaining("href", newsContentUrl);		
-				for (Element element : elements) {		
+				Elements eles=documnet.getElementsByAttributeValueContaining("href", newsContentUrl);		
+				for (Element element : eles) {		
 					listNewsContentUrls.add(element.parent().className());
 				}
 
@@ -186,6 +189,7 @@ public class GettingProperNewsUrls {
 			wordsList.add("youtube");
 			wordsList.add("play");
 			wordsList.add("itunes");
+			wordsList.add("file");
 			wordsList.add("redirect");
 
 
