@@ -25,34 +25,7 @@ public class CompanyAddressExtraction {
 		Pattern address_pattern = Pattern.compile(address_patt);
 
 		List<String> urls = new ArrayList<String>();
-		urls.add("	http://www.tmgfinancialservices.com	");
-		urls.add("	https://www.joepulizzi.com/	");
-		urls.add("	https://www.alliedwallet.com/	");
-		urls.add("	http://www.prudentitinc.com/	");
-		urls.add("	http://www.archoninfosys.com	");
-		urls.add("	https://www.callingmart.com/	");
-		urls.add("	http://www.assurancefa.com	");
-		urls.add("	http://www.vistaimagingservices.com	");
-		urls.add("	http://keepcalling.net/	");
-		urls.add("	https://www.efwnow.com/	");
-		urls.add("	https://kellermortgage.com/	");
-		urls.add("	https://www.verusboc.com/	");
-		urls.add("	https://crescendrf.com/	");
-		urls.add("	https://nlogic.com/	");
-		urls.add("	http://utilipath.com	");
-		urls.add("	http://Aribex.com	");
-		urls.add("	http://www.wcslending.com	");
-		urls.add("	http://www.expertsit.com	");
-		urls.add("	https://www.ifgsd.com/	");
-		urls.add("	http://www.bristleconeadvisors.com	");
-		urls.add("	http://www.intrustgroup.com	");
-		urls.add("	https://www.rtsav.com/	");
-		urls.add("	https://www.asset-security-pro.com/	");
-		urls.add("	https://saw-grass.com/	");
-		urls.add("	https://www.sentryprotectsyou.com/	");
-		urls.add("	http://www.technosecure.com	");
-		urls.add("	http://www.uscarrier.com	");
-		urls.add("	https://www.inboxdollars.com/	");
+	
 		urls.add("	blogspot.com	");
 		urls.add("	symptomfind.com	");
 		urls.add("	prevention.com	");

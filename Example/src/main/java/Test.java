@@ -31,22 +31,20 @@ public class Test {
 		{
 
 			List<String> url=new ArrayList<String>();	
-			url.add("https://www.bnkbl.com/news/?tag=2010,2013,2014,2015,2016,2017,2018,2019,2020");
+			url.add("https://twitter.com/fluentgrid");
 
 			for (String string : url) 
 			{ 	
 				companyPage=getCompanyPage(chromeDriver,string);
 
-				for (int i = 1; i <=70; i++) {
+				
 					Thread.sleep(2000);
-					JavascriptExecutor js = (JavascriptExecutor) companyPage;
-					js.executeScript("window.scrollBy(0,1000)");
-
-				}
+					
+				
 
 
                 try (FileWriter writer = new FileWriter(
-						"C:\\OmPrakash\\bnkbl.txt", true);
+						"C:\\OmPrakash\\fluentgrid.txt", true);
 						BufferedWriter bw = new BufferedWriter(writer)) {				
 				    bw.write(companyPage.getPageSource());
 					bw.write("\n");
