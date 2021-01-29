@@ -18,11 +18,7 @@ public class UkAddressExtraction {
 
 		Document document = null;
 		List<String> url=new ArrayList<String>();
-
-
-		String regex = "(\\d{1,})[ ]?[a-zA-Z0-9.,\\s]+(\\.)?[ ]?[a-zA-Z]+(\\,)?[ ]?[A-Z]{2}[ ]?[0-9]{5,6}|[0-9]{5}(?:-[0-9]{4})?+";
-		Pattern pattern = Pattern.compile(regex);
-
+		
 		String address_pattern = "(contact-us|contact us|contact-us.html|contact|about|support)+";
 
 		url.add("	http://www.anomaly42.com	");
@@ -125,6 +121,10 @@ public class UkAddressExtraction {
 		url.add("	https://www.quilterinternational.com/	");
 		url.add("	https://www.quilterpca.co.uk/	");
 
+		//String regex = "\\d{1,5}(th|rd|nd)?[ ]?([a-zA-Z0-9!@#$&()-`.+,\\s\\\"\\']*)(([a-zA-Z]){1}([0-9][0-9]|[0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][0-9][0-9]|[a-zA-Z][0-9]){1}([ ])([0-9][a-zA-z][a-zA-z]){1})";
+
+		String regex = "\\d{1,5}([A-Za-z\\,\\s\\']+)(([a-zA-Z]){1}([0-9][0-9]|[0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][0-9][0-9]|[a-zA-Z][0-9]){1}([ ])([0-9][a-zA-z][a-zA-z]){1})";
+		Pattern pattern = Pattern.compile(regex);
 		try {
 
 			for (String string : url) {
@@ -132,8 +132,14 @@ public class UkAddressExtraction {
 				document =getURLResponse(string.trim());
 				if(document!=null)
 				{
-					System.out.println(getLocationBssedonZipcode(getUKZipcode(document.text()),document.text()));
+					//System.out.println(getLocationBssedonZipcode(getUKZipcode(document.text()),document.text()));
 
+					if(getLocationBssedonZipcode(getUKZipcode(document.text()),document.text())!=null){
+						Matcher matcher = pattern.matcher(getLocationBssedonZipcode(getUKZipcode(document.text()),document.text()));
+						if (matcher.find()) {
+							System.out.println(matcher.group());
+						}
+					}
 
 					Elements contactlink = document.getElementsByAttributeValueMatching("href", address_pattern);
 					for (Element contactlinks : contactlink) {
@@ -144,7 +150,15 @@ public class UkAddressExtraction {
 									Document document_new = getURLResponse(contactPages);
 									if (document_new != null) {
 										
-										System.out.println(getLocationBssedonZipcode(getUKZipcode(document_new.text()),document_new.text()));
+										//System.out.println(getLocationBssedonZipcode(getUKZipcode(document_new.text()),document_new.text()));
+										
+										if(getLocationBssedonZipcode(getUKZipcode(document_new.text()),document_new.text())!=null){
+											Matcher matcher = pattern.matcher(getLocationBssedonZipcode(getUKZipcode(document_new.text()),document_new.text()));
+											if (matcher.find()) {
+												System.out.println(matcher.group());
+											}
+										}
+										
 									}
 								}
 							}
@@ -171,6 +185,10 @@ public class UkAddressExtraction {
 				Integer endInde =address.indexOf(zipcode);
 				if(address.length()>0)
 				{
+					
+					int startInde=endInde-100;	
+					location=address.substring(startInde, endInde)+" "+zipcode;
+					/*
 					int startInde=endInde-100;			
 					String locationMain=address.substring(startInde, endInde).trim();	
 					String str = locationMain.replaceAll("[^-?0-9]+", " ").trim(); 
@@ -182,7 +200,7 @@ public class UkAddressExtraction {
 							location=locationMain.substring(index)+" "+zipcode;
 						}
 					}
-				}
+				*/}
 			}		
 
 		} catch (Exception e) {
@@ -209,21 +227,7 @@ public class UkAddressExtraction {
 		return zipcode;
 	}
 
-	public static String getUSINZipcode(String addressText) {
 
-		String zipcode=null;
-		String zipCodePattern = "\\d{6}(?:[-\\s]\\d{4})?";
-		try {
-			Pattern compiled = Pattern.compile(zipCodePattern);
-			Matcher matcher = compiled.matcher(addressText);
-			if (matcher.find()) {
-				zipcode = matcher.group(0);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return zipcode;
-	}
 
 
 	public static Document getURLResponse(String url) {

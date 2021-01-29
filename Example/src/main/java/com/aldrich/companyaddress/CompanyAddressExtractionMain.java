@@ -21,7 +21,8 @@ import com.aldrich.pase.util.RegularExpressionUtils;
 public class CompanyAddressExtractionMain {
 	public static void main(String[] args) {
 
-		String regex = "(\\d{1,})[ ]?[a-zA-Z0-9.,\\s]+(\\.)?[ ]?[a-zA-Z]+(\\,)?[ ]?[A-Z]{2}[ ]?[0-9]{5,6}|[0-9]{5}(?:-[0-9]{4})?+";
+		String regex = "\\d{1,5}(th|rd|nd)?[ ]?([a-zA-Z0-9!@#$&()-`.+,\\s\\\"\\']*)(([a-zA-Z]){1}([0-9][0-9]|[0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][0-9][0-9]|[a-zA-Z][0-9]){1}([ ])([0-9][a-zA-z][a-zA-z]){1})";
+
 		Pattern pattern = Pattern.compile(regex);
 
 		String address_pattern = "(contact-us|contact us|contact-us.html|contact|about|support)+";
@@ -32,8 +33,8 @@ public class CompanyAddressExtractionMain {
 		//https://edgefolio.com/ab
 		//addressq.add("https://bionic.co.uk/");
 		//https://liaisongroup.com
-		addressq.add("https://liaisongroup.com");
-		
+		addressq.add("https://bionic.co.uk/");
+
 
 		for (String companyUrl : addressq) {
 			try {
@@ -65,15 +66,13 @@ public class CompanyAddressExtractionMain {
 																new_address = address.replace("All Rights Reserved", "")
 																		.replace("Contact Us", "").replace("©", "").replace("|", "")
 																		.replace("-", "").replace("/", "");
-																;
 																if (new_address != null) {
-																	//System.out.println(getCALocation(new_address.trim()));	
-																//getLocationBssedonZipcode(getUKZipcode(new_address.trim()),new_address.trim());
-																System.out.println(getLocationBssedonZipcode(getUKZipcode(new_address.trim()),new_address.trim()));
+																
+																	System.out.println(new_address);
 
-																	
 
-																}}
+																}
+															}
 														}
 													}
 												}
@@ -119,14 +118,10 @@ public class CompanyAddressExtractionMain {
 																							.replace("©", "").replace("|", "")
 																							.replace("-", "").replace("/", "");
 																					if (new_address != null) {
-																						
-																						System.out
-																								.println(new_address);
-																						//System.out.println(getCALocation(new_address.trim()));																								
-																						//getLocationBssedonZipcode(getUKZipcode(new_address.trim()),new_address.trim());
-																						System.out.println(getLocationBssedonZipcode(getUKZipcode(new_address.trim()),new_address.trim()));
-																								
 
+																						
+
+																						System.out.println(new_address);
 
 																					}
 																				}
@@ -214,8 +209,8 @@ public class CompanyAddressExtractionMain {
 		}
 		return location;
 	}
-	
-	
+
+
 	public static String getUKZipcode(String addressText) {
 
 		String zipcode=null;
@@ -231,25 +226,25 @@ public class CompanyAddressExtractionMain {
 		}
 		return zipcode;
 	}
-	
-	
+
+
 	public static String getLocationBssedonZipcode(String zipcode,String address) {
 
 		String location=null;
 		try{
-			
+
 			Integer endInde =address.indexOf(zipcode);
 			//ystem.out.println(endInde);
 			if(address.length()>0)
 			{
 				System.out.println(address.length());
 				int startInde=endInde-100;
-				
+
 				location=address.substring(startInde, endInde)+zipcode;
-				
+
 			}
-			
-		
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
