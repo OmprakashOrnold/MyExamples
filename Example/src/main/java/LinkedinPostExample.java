@@ -12,9 +12,7 @@ public class LinkedinPostExample {
 		// TODO Auto-generated method stub
 				Document document = null;
 				
-				String postedDate = null;
-				String value = null;
-				String type = null;
+			
 
 				File fullFileName = new File("C:\\Users\\oppeddamadthala\\Downloads\\Woundtech2.html");
 				// read the content from file

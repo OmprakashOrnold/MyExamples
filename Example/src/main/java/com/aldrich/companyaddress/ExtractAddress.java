@@ -1030,16 +1030,14 @@ public class ExtractAddress {
 
 	public static String getLocation(String addressText) {
 		String location = null;
-		String zipcode = "\\d{5}(?:-\\d{4})?";
 		String city = "(?:[A-Z][A-Za-z.-]+[ ]?)+";
 		String abbrev = "AL|AK|AS|AZ|AR|CA|CO|CT|DE|DC|FM|FL|GA|GU|HI|ID|IL|IN|IA|KS|KY|LA|ME|MH|MD|MA|MI|MN|MS|MO|MT|NE|NV|N.Y.|NH|NJ|NM|NY|NC|ND|MP|OH|OK|OR|PW|PA|PR|RI|SC|SD|TN|TX|UT|VT|VI|VA|WA|WV|WI|WY";
-		String street = "\\d{1,5}[ ](?:[A-Za-z\\s0-9,\\.#]?)+[ ]?(?:Avenue|Ave|Lane|Roadz|Boulevard|Drive|Street|BLVD|Ave|Dr|Rd|Road|Blvd|AVE|Ln|St|Suite|th|Unit|Dr|floor|Floor|STE|Ste|Lyme|Court|level|NE|SE|Circle|Way|Cir|Redwood|Highway|Hwy|Route|East|West|Broadway|Mission|Tower|StreetRear|Place|Pike|Cynwyd|Pkwy|Expressway|Square|street|Room|Ct|Parkway|Pablo|Turnpike|Arques|Real|rd|BOX|Box|Building|BIN|So)?\\,?\\.?[ ]?([\\#\\d{1,3}])?([A-Z]\\.)?([\\#[A-Z]])?[ ]?([A-Z]\\.)?([A-Za-z\\s]+)?[,]?[ ]?([A-Z]?\\d{1,3}[A-Z])?([A-z]?\\d{1,3})?\\,?[ ]?(\\#?\\d{1,3})?(\\#?\\d{1,3}[A-Z])?\\,?[ ]?([A-Z]\\.)?([A-Za-z\\s]+)?[,]?[ ]?([A-Za-z\\s]+)?[,]?[ ]?[\\.]?[ ]?\\d{1,5}\\d{1,5}[ ](?:[A-Za-z\\s0-9,\\.#]?)+[ ]?(?:Avenue|Ave|Lane|Roadz|Boulevard|Drive|Street|BLVD|Ave|Dr|Rd|Road|Blvd|AVE|Ln|St|Suite|th|Unit|Dr|floor|Floor|STE|Ste|Lyme|Court|level|NE|SE|Circle|Way|Cir|Redwood|Highway|Hwy|Route|East|West|Broadway|Mission|Tower|StreetRear|Place|Pike|Cynwyd|Pkwy|Expressway|Square|street|Room|Ct|Parkway|Pablo|Turnpike|Arques|Real|rd|BOX|Box|Building|BIN|So)?\\,?\\.?[ ]?([\\#\\d{1,3}])?([A-Z]\\.)?([\\#[A-Z]])?[ ]?([A-Z]\\.)?([A-Za-z\\s]+)?[,]?[ ]?([A-Z]?\\d{1,3}[A-Z])?([A-z]?\\d{1,3})?\\,?[ ]?(\\#?\\d{1,3})?(\\#?\\d{1,3}[A-Z])?\\,?[ ]?([A-Z]\\.)?([A-Za-z\\s]+)?[,]?[ ]?([A-Za-z\\s]+)?[,]?[ ]?[\\.]?[ ]?\\d{1,5}";
 		String state = "Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New[ ]Hampshire|New[ ]Jersey|New[ ]Mexico|New[ ]York|North[ ]Carolina|North[ ]Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode[ ]Island|South[ ]Carolina|South[ ]Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West[ ]Virginia|Wisconsin|Wyoming";
-		String reg =street+"([{" + state + "}|{" + abbrev + "}]?)[,]?[ ]?" + zipcode;
-		Pattern compiled = Pattern.compile(street);
+		String reg =city+"([{" + state + "}|{" + abbrev + "}]?)[,]?[ ]?";
+		Pattern compiled = Pattern.compile(reg);
 		try {
-
-			Matcher matcher = RegularExpressionUtils.createMatcherWithTimeout(addressText, compiled, 30000);
+			
+			Matcher matcher = compiled.matcher(addressText);
 			if (matcher.find()) {
 				location = matcher.group();
 			}
@@ -1079,7 +1077,7 @@ public class ExtractAddress {
 		String stateCA = "Alberta|British[ ]Columbia|Manitoba|New[ ]Brunswick|Newfoundland[ ]and[ ]Labrador|Northwest[ ]Nova[ ]Scotia|Nunavut|Ontario|Quebec|Saskatchewan|Yukon|Prince[ ]Edward[ ]Island";
 		String zipcode="((?!.*[DFIOQU])[A-VXY][0-9][A-Z] ?[0-9][A-Z][0-9])";
 
-		String reg=city+"[,]?[ ]?("+stateCA+"|"+abbrevCA+")[,]?[ ]?"+zipcode;
+		String reg=city+"[,]?[ ]?("+stateCA+"|"+abbrevCA+")[,]?[ ]?";
 		Pattern compiled = Pattern.compile(reg);
 		try {
 
