@@ -6,17 +6,36 @@
 	<version>1.0</version>
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/io.github.crew102/rapidrake -->
+		<dependency>
+			<groupId>io.github.crew102</groupId>
+			<artifactId>rapidrake</artifactId>
+			<version>0.1.1</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>net.sf.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
 			<version>2.3</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+
+		<!-- https://mvnrepository.com/artifact/com.syncthemall/boilerpipe -->
 		<dependency>
-			<groupId>com.squareup.okhttp3</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>3.9.0</version>
+			<groupId>com.syncthemall</groupId>
+			<artifactId>boilerpipe</artifactId>
+			<version>1.2.2</version>
 		</dependency>
+
+
+
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl -->
 		<dependency>
@@ -75,6 +94,13 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>2.8</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.22</version>
 		</dependency>
 
 		<dependency>

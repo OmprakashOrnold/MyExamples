@@ -36,10 +36,10 @@ public class getDateFromString
 		String dateFormat = null;
 		Date date = null;
 		String regex1 = "\\d{4,4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])";
-		String regex2 = "(0?[1-9]|[12][0-9]|3[01])\\/(0?[1-9]|1[012])\\/\\d{4,4}";
-		String regex3 = "(0[1-9]|1[012])\\/(0[1-9]|[12][0-9]|3[01])\\/\\d{4,4}";
-		String regex4 = "(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])\\-\\d{4,4}";
-		String regex5 = "(0?[1-9]|[12][0-9]|3[01])\\-(0?[1-9]|1[012])\\-\\d{4,4}";
+		String regex2 = "(0?[1-9]|[12][0-9]|3[01])\\/(0?[1-9]|1[012])\\/(\\d{4,4})";
+		String regex3 = "(0?[1-9]|1[012])\\/(0?[1-9]|[12][0-9]|3[01])\\/(\\d{4,4})";
+		String regex4 = "(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])\\-(\\d{4,4})";
+		String regex5 = "(0?[1-9]|[12][0-9]|3[01])\\-(0?[1-9]|1[012])\\-(\\d{4,4})";
 		String regex6 = "\\d{4,4}\\/(0?[1-9]|1[012])\\/(0?[1-9]|[12][0-9]|3[01])";
 		String regex7 = "(0?[1-9]|[12][0-9]|3[01])\\s(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\s\\d{4,4}";
 		String regex8 = "(0?[1-9]|[12][0-9]|3[01])\\-(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\\-\\d{4,4}";
