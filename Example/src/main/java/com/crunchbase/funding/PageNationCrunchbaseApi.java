@@ -22,8 +22,8 @@ public class PageNationCrunchbaseApi {
 
 	public static void main(String[] args) {
 
-		String companyName="woundtech";
-		String cardName="jobs";
+		String companyName="wyre";
+		String cardName="funding_total";
 
 		String url=CRUNCHBASE_BASE_URL+companyName+"/cards/"+cardName+"?"+CRUNCHBASE_KEY;
 		processUrlAndCardName(url,cardName,companyName);

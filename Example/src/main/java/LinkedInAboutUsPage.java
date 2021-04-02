@@ -168,34 +168,7 @@ public class LinkedInAboutUsPage {
 												}
 											}
 											// headquatters
-											if (isValid(innerObject, "headquarter")) {
-												JSONObject headquarterObject = (JSONObject) innerObject
-														.getJSONObject("headquarter");
-												if (isValid(headquarterObject, "country")) {
-													System.out.println(
-															"country: " + headquarterObject.get("country").toString());
-												}
-												if (isValid(headquarterObject, "geographicArea")) {
-													System.out.println("geographicArea: "
-															+ headquarterObject.get("geographicArea").toString());
-												}
-												if (isValid(headquarterObject, "city")) {
-													System.out.println(
-															"city: " + headquarterObject.get("city").toString());
-												}
-												if (isValid(headquarterObject, "postalCode")) {
-													System.out.println("postalCode: "
-															+ headquarterObject.get("postalCode").toString());
-												}
-												if (isValid(headquarterObject, "line1")) {
-													System.out.println(
-															"line1: " + headquarterObject.get("line1").toString());
-												}
-												if (isValid(headquarterObject, "line2")) {
-													System.out.println(
-															"line2: " + headquarterObject.get("line2").toString());
-												}
-											}
+											getHeadquaterLocations(innerObject);
 											// specialities
 											if (isValid(innerObject, "specialities")) {
 												JSONArray specialitiesArray = innerObject.getJSONArray("specialities");
@@ -208,12 +181,13 @@ public class LinkedInAboutUsPage {
 													System.out.println(
 															"specialities:" + specialities.replace("null,", "").trim());
 												}
+											
 												
 											//confirmedLocations
 												if (isValid(innerObject, "confirmedLocations")) {	
 													JSONArray confirmedLocationsArray = innerObject.getJSONArray("confirmedLocations");
 													if (confirmedLocationsArray.length() > 0) {
-												String confirmedLocations=null;
+											       	String confirmedLocations=null;
 														for (int index = 0; index < confirmedLocationsArray.length(); index++) {
 														System.out.println("-------");
 														JSONObject innerObject1 = confirmedLocationsArray.getJSONObject(index);
@@ -246,7 +220,6 @@ public class LinkedInAboutUsPage {
 														}
 												}
 											}}
-											// System.out.println("---------------------------------------");
 										} catch (Exception ex) {
 											System.out.println(ex.toString());
 										}
@@ -261,6 +234,37 @@ public class LinkedInAboutUsPage {
 			}
 		}
 
+	}
+
+	public static void getHeadquaterLocations(JSONObject innerObject) {
+		if (isValid(innerObject, "headquarter")) {
+			JSONObject headquarterObject = (JSONObject) innerObject
+					.getJSONObject("headquarter");
+			if (isValid(headquarterObject, "country")) {
+				System.out.println(
+						"country: " + headquarterObject.get("country").toString());
+			}
+			if (isValid(headquarterObject, "geographicArea")) {
+				System.out.println("geographicArea: "
+						+ headquarterObject.get("geographicArea").toString());
+			}
+			if (isValid(headquarterObject, "city")) {
+				System.out.println(
+						"city: " + headquarterObject.get("city").toString());
+			}
+			if (isValid(headquarterObject, "postalCode")) {
+				System.out.println("postalCode: "
+						+ headquarterObject.get("postalCode").toString());
+			}
+			if (isValid(headquarterObject, "line1")) {
+				System.out.println(
+						"line1: " + headquarterObject.get("line1").toString());
+			}
+			if (isValid(headquarterObject, "line2")) {
+				System.out.println(
+						"line2: " + headquarterObject.get("line2").toString());
+			}
+		}
 	}
 
 	public static boolean isValid(JSONObject jsonObject, String propertyName) {

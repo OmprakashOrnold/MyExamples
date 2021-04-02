@@ -20,7 +20,7 @@ public class FundingIndex {
 
 	public static void main(String[] args) {
 
-		String companyName="facebook";
+		String companyName="wyre";
 		String crunchbase_key="&user_key=3dea39a0297318708ef02c05b3fe393b";
 		String url="https://api.crunchbase.com/api/v4/entities/organizations/"+companyName+"/cards/raised_funding_rounds?"+crunchbase_key;
 
