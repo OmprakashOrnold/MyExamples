@@ -22,12 +22,12 @@ public class LinkedinAboutPages {
 
 		for (File file : listOfFiles) {
 			if (file.isFile()) {
-				System.out.println(file.getName().replace(".html",""));
+			//	System.out.println(file.getName().replace(".html",""));
 				File fullFileName = new File("C:\\aboutus_03.10\\"+file.getName());
 
 				processResponse(fullFileName);
 
-				System.out.println("******************************************************************************");
+			//	System.out.println("******************************************************************************");
 			}
 		}
 
@@ -93,7 +93,9 @@ public class LinkedinAboutPages {
 		String end_count=null;
 		String followers_count=null;
 		String categoryId=null;
+		String  companyUniqueeName=null;
 		try {
+			companyUniqueeName=getLinkedinCompanyUniqueName(jsonObject);
 			followers_count=getFollowersCount(jsonObject);
 			company_url=getCompanyUrl(jsonObject);
 			staff_count=getStaffCount(jsonObject);
@@ -106,9 +108,10 @@ public class LinkedinAboutPages {
 			end_count=getStaffRanageEndCount(jsonObject);
 			categoryId=getCategoryID(jsonObject);
 
-
+			System.out.println(companyUniqueeName);
+			System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			System.out.println(categoryId);
-			System.out.println(")))))))))))))))))))))))");
+			
 			System.out.println(followers_count);
 			System.out.println(company_url);
 			System.out.println(staff_count);
@@ -549,6 +552,37 @@ public class LinkedinAboutPages {
 		}
 		return valid;
 	}
+
+
+	public static String getLinkedinCompanyUniqueName(JSONObject jsonObject) {
+		String companyUniqueeName="";
+		try {
+			JSONArray includeArray = jsonObject.getJSONArray("included");
+			int arraySize = includeArray.length();
+			if (arraySize > 0) {
+				for (int arrayIndex = 0; arrayIndex < arraySize; arrayIndex++) {
+					try {
+						JSONObject innerObject = includeArray.getJSONObject(arrayIndex);
+						if (isValid(innerObject, "entityUrn") &&  isValid(innerObject, "companyPageUrl")) {
+							String lnkCompanyIdText = innerObject .get("entityUrn").toString().replace( "urn:li:fs_normalized_company:", "").trim();
+							if (isValid(innerObject, "universalName")) {
+								String uniqueName = innerObject.get("universalName").toString() .trim();
+								if (lnkCompanyIdText != null &&lnkCompanyIdText != "" && uniqueName != null &&uniqueName != "") {
+									companyUniqueeName=uniqueName.toString();
+								}
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return companyUniqueeName;
+	}
+
 
 
 }
